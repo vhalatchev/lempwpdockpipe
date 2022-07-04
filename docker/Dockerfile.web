@@ -13,9 +13,9 @@ RUN apt-get -y update
 RUN apt-get -y upgrade
 RUN apt-get -y install mysql-client nginx curl git unzip
 RUN apt-get -y install php7.4 php7.4-fpm php7.4-gd php7.4-mysql
-RUN ufw enable
-RUN ufw allow 'Nginx HTTP'
-RUN ufw allow 'OpenSSH'
+#RUN ufw enable
+#RUN ufw allow 'Nginx HTTP'
+#RUN ufw allow 'OpenSSH'
 
 # nginx site conf
 ADD nginx/nginx-site.conf /etc/nginx/sites-available/wordpress
