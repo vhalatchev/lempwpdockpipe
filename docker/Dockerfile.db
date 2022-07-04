@@ -1,5 +1,6 @@
 FROM mysql
-RUN sed -i -e"s/^bind-address\s*=\s*172.31.40.30/bind-address = 0.0.0.0/" /etc/mysql/mysql.conf.d/mysqld.cnf
+ADD my.cnf /etc/mysql/
+RUN sed -i -e"s/^bind-address\s*=\s*172.31.40.30/bind-address = 0.0.0.0/" /etc/mysql/my.cnf
 
 # MySql Initialization and Startup Script
 ADD ./start_db.sh /start_db.sh
