@@ -1,0 +1,8 @@
+FROM mysql
+RUN sed -i -e"s/^bind-address\s*=\s*172.31.40.30/bind-address = 0.0.0.0/" /etc/mysql/mysql.conf.d/mysqld.cnf
+EXPOSE 3306
+
+# volume for mysql database
+VOLUME ["/var/lib/mysql"]
+
+CMD ["/bin/bash", "/start_db.sh"]
