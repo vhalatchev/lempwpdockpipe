@@ -17,11 +17,16 @@ RUN apt-get -y install php7.4 php7.4-fpm php7.4-gd php7.4-mysql
 #RUN ufw allow 'Nginx HTTP'
 #RUN ufw allow 'OpenSSH'
 
+# nginx config
+RUN sed -i -e"s/keepalive_timeout\s*65/keepalive_timeout 2/" /etc/nginx/nginx.conf
+RUN sed -i -e"s/keepalive_timeout 2/keepalive_timeout 2;\n\tclient_max_body_size 100m/" /etc/nginx/nginx.conf
+RUN echo "daemon off;" >> /etc/nginx/nginx.conf
+
 # nginx site conf
 ADD nginx/nginx-site.conf /etc/nginx/sites-available/wordpress
 RUN cd /etc/nginx && rm sites-enabled/default
 RUN ln -s /etc/nginx/sites-available/wordpress /etc/nginx/sites-enabled/
-RUN nginx -t && systemctl restart nginx
+#RUN nginx -t && systemctl restart nginx
 
 # Install Wordpress
 ADD https://wordpress.org/latest.tar.gz /tmp/latest.tar.gz
