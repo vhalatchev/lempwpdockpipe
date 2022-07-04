@@ -1,6 +1,13 @@
 FROM ubuntu:20.04
 USER root
 
+# Keep upstart from complaining
+RUN dpkg-divert --local --rename --add /sbin/initctl
+RUN ln -sf /bin/true /sbin/initctl
+
+# Let the conatiner know that there is no tty
+ENV DEBIAN_FRONTEND noninteractive
+
 # Basic Requirements
 RUN apt-get -y update
 RUN apt-get -y upgrade
@@ -25,8 +32,8 @@ RUN rm -rf /tmp/wordpress
 RUN chown -R www-data:www-data /var/www/html/
 
 # Wordpress Initialization and Startup Script
-ADD ./start.sh /start.sh
-RUN chmod 755 /start.sh
+ADD ./start_web.sh /start_web.sh
+RUN chmod 755 /start_web.sh
 
 # Private expose
 EXPOSE 80
