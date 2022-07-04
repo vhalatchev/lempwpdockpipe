@@ -1,5 +1,5 @@
 FROM ubuntu:20.04
-USER root
+# USER root
 
 # Basic Requirements
 RUN apt-get -y update
