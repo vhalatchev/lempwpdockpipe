@@ -1,5 +1,5 @@
 FROM ubuntu:20.04
-# USER root
+USER root
 
 # Keep upstart from complaining
 RUN dpkg-divert --local --rename --add /sbin/initctl
@@ -10,13 +10,10 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # Basic Requirements
 RUN apt-get -y update
+RUN cd / && apt-get install apt-utils -y
 RUN apt-get -y upgrade
-RUN apt-get install apt-utils
 RUN apt-get -y install mysql-client nginx curl git unzip
 RUN apt-get -y install php7.4 php7.4-fpm php7.4-gd php7.4-mysql
-#RUN ufw enable
-#RUN ufw allow 'Nginx HTTP'
-#RUN ufw allow 'OpenSSH'
 
 # nginx config
 RUN sed -i -e"s/keepalive_timeout\s*65/keepalive_timeout 2/" /etc/nginx/nginx.conf
@@ -27,7 +24,7 @@ RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 ADD nginx/nginx-site.conf /etc/nginx/sites-available/wordpress
 RUN cd /etc/nginx && rm sites-enabled/default
 RUN ln -s /etc/nginx/sites-available/wordpress /etc/nginx/sites-enabled/
-#RUN nginx -t && systemctl restart nginx
+RUN nginx -t && systemctl restart nginx
 
 # Install Wordpress
 ADD https://wordpress.org/latest.tar.gz /tmp/latest.tar.gz
@@ -37,14 +34,14 @@ RUN cp -a /tmp/wordpress/. /var/www/html
 RUN rm -rf /tmp/wordpress
 RUN chown -R www-data:www-data /var/www/html/
 
-# Wordpress Initialization and Startup Script
+## Wordpress Initialization and Startup Script
 ADD ./start_web.sh /start_web.sh
 RUN chmod 755 /start_web.sh
-
-# Private expose
+#
+## Private expose
 EXPOSE 80
-
-# Volume for wordpress install
+#
+## Volume for wordpress install
 VOLUME ["/var/www/html/"]
-
+#
 CMD ["/bin/bash", "/start_web.sh"]
