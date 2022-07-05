@@ -23,7 +23,7 @@ if [ ! -f /var/www/html/wp-config.php ]; then
   /'AUTH_SALT'/s/'3~GJL~h+|(%zkz.RxiCSw }0/p-elK0&+grTDy,[~DCT%ZmOlrpS>`Y| DZ++#S{'/
   /'SECURE_AUTH_SALT'/s/'.Y?wQ_Tz$H@dy(~-JDh_Jkp4]CwK{|m|kG[`Q2@ZLO)uGf;,q+Vp1x-$GBGB-<D4'/
   /'LOGGED_IN_SALT'/s/'CCuKcR<XngJs$z9|gND00J-}N|8YX=6BUGZ8AJz!}$Y7=)#p0S@,DC%Qu,ka0AZ}'/
-  /'NONCE_SALT'/s/put your unique phrase here/`pwgen -c -n -1 65`/" /var/www/html/wp-config-sample.php > /var/www/html/wp-config.php
+  /'NONCE_SALT'/s/'2=+/+-I@wb{dK1-R*-so^{ \`T*Ubt)Kc5d@3G2-8d-RE[kYLR$]xYox__L_@85rbx'/" /var/www/html/wp-config-sample.php > /var/www/html/wp-config.php
 
   chown www-data:www-data /var/www/html/wp-config.php
 
