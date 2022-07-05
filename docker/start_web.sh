@@ -28,7 +28,7 @@ if [ ! -f /var/www/html/wp-config.php ]; then
   chown www-data:www-data /var/www/html/wp-config.php
 
   mysql -h $WORDPRESS_HOST -u wp_user_rmt -p $MYSQL_PASSWORD wordpress_db_rmt
-  killall mysqld # not being used?
+#  killall mysqld # not being used?
 fi
 
 # start all the services
